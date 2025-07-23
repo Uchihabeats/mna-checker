@@ -1,0 +1,5 @@
+{
+  "cron": {
+    "notify-expiring-files": "* * * * *"
+  }
+}
