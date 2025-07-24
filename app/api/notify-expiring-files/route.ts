@@ -4,8 +4,8 @@ import nodemailer from "nodemailer";
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "uchihabeats@gmail.com",
-    pass: "dkypswkffnghqccx",
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
   },
 });
 
@@ -23,13 +23,21 @@ export async function GET() {
   const dd2 = String(oneMonthLater.getDate()).padStart(2, "0");
   const oneMonthLaterStr = `${yyyy2}-${mm2}-${dd2}`;
 
+  // const result = await sql`
+  //   SELECT f.*, u.email 
+  //   FROM files f 
+  //   JOIN users u ON f.user_id = u.id
+  //   WHERE f.expiry_date >= ${todayStr}
+  //     AND f.expiry_date <= ${oneMonthLaterStr}
+  //     AND f.notification_sent = false
+  // `;
+
   const result = await sql`
     SELECT f.*, u.email 
     FROM files f 
     JOIN users u ON f.user_id = u.id
-    WHERE f.expiry_date >= ${todayStr}
-      AND f.expiry_date <= ${oneMonthLaterStr}
-      AND f.notification_sent = false
+    WHERE f.expiry_date <= ${oneMonthLaterStr}
+    AND f.notification_sent = false
   `;
 
   let notified = [];

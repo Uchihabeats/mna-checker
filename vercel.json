@@ -1,5 +1,6 @@
 {
-  "cron": {
-    "notify-expiring-files": "* * * * *"
-  }
+  "crons": [{
+    "path": "/api/notify-expiring-files",
+    "schedule": "0 * * * *"
+  }]
 }
