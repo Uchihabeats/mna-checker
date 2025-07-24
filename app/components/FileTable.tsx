@@ -268,7 +268,7 @@ export default function FileTable() {
                 </th>
                 
                 <th className="py-4 px-6 text-left font-semibold text-gray-700">Download</th>
-                <th className="py-4 px-6 text-left font-semibold text-gray-700">Archive</th>
+                <th className="py-4 px-6 text-left font-semibold text-gray-700">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
