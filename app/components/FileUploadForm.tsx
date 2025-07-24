@@ -2,15 +2,19 @@
 import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
 
-export default function FileUploadForm({ onUpload }) {
+interface FileUploadFormProps {
+  onUpload?: () => void;
+}
+
+export default function FileUploadForm({ onUpload }: FileUploadFormProps) {
   const { data: session } = useSession();
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState<File | null>(null);
   const [effectiveDate, setEffectiveDate] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
   const [loading, setLoading] = useState(false);
   const [dragActive, setDragActive] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!file) return;
     setLoading(true);
@@ -65,7 +69,7 @@ export default function FileUploadForm({ onUpload }) {
     }
   };
 
-  const handleDrag = (e) => {
+  const handleDrag = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
     if (e.type === "dragenter" || e.type === "dragover") {
@@ -75,7 +79,7 @@ export default function FileUploadForm({ onUpload }) {
     }
   };
 
-  const handleDrop = (e) => {
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
@@ -85,7 +89,7 @@ export default function FileUploadForm({ onUpload }) {
     }
   };
 
-  const handleFileChange = (e) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setFile(e.target.files[0]);
     }
@@ -160,7 +164,7 @@ export default function FileUploadForm({ onUpload }) {
             <input
               type="date"
               value={effectiveDate}
-              onChange={e => setEffectiveDate(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEffectiveDate(e.target.value)}
               required
               className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-colors text-gray-900"
             />
@@ -173,7 +177,7 @@ export default function FileUploadForm({ onUpload }) {
             <input
               type="date"
               value={expiryDate}
-              onChange={e => setExpiryDate(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setExpiryDate(e.target.value)}
               required
               className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-colors text-gray-900"
             />

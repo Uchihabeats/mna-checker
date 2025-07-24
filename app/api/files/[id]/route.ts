@@ -1,8 +1,15 @@
 import { sql } from "@vercel/postgres";
 import { NextResponse } from "next/server";
 
-export async function PUT(request: Request, context: { params: { id: string } }) {
-  const { id } = context.params;
+interface RouteParams {
+  params: Promise<{ id: string }>;
+}
+
+export async function PUT(
+  request: Request,
+  { params }: RouteParams
+) {
+  const { id } = await params;
   const body = await request.json();
   const { effective_date, expiry_date } = body;
 
@@ -14,8 +21,11 @@ export async function PUT(request: Request, context: { params: { id: string } })
   return NextResponse.json({ success: true });
 }
 
-export async function DELETE(request: Request, context: { params: { id: string } }) {
-  const { id } = context.params;
+export async function DELETE(
+  request: Request,
+  { params }: RouteParams
+) {
+  const { id } = await params;
   //   const body = await request.json();
   //   const { effective_date, expiry_date } = body;
 

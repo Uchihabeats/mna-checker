@@ -14,7 +14,7 @@ export default function DashboardPage() {
         <h1 className="text-3xl font-bold text-center text-indigo-700 mb-8">File Dashboard</h1>
         <FileUploadForm onUpload={handleUpload} />
         <div className="mt-8">
-          <FileTable key={refresh} />
+          <FileTable key={refresh.toString()} />
         </div>
       </div>
     </div>
