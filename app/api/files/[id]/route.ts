@@ -16,8 +16,8 @@ export async function PUT(request: Request, context: { params: { id: string } })
 
 export async function DELETE(request: Request, context: { params: { id: string } }) {
   const { id } = context.params;
-//   const body = await request.json();
-//   const { effective_date, expiry_date } = body;
+  //   const body = await request.json();
+  //   const { effective_date, expiry_date } = body;
 
   await sql`
     DELETE FROM files
